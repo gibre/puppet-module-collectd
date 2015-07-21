@@ -17,7 +17,7 @@ class collectd::install {
         path   => '/usr/local/bin/install_collectd.sh',
         owner  => 'root',
         group  => 'root',
-        mode   => '0744', # Use 0700 if it is sensitive
+        mode   => '0744',
         notify => Exec['run_collectd_install'],
       } ->
       exec {
