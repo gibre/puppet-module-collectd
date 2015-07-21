@@ -13,6 +13,7 @@ class collectd(
   $write_queue_limit_high = undef,
   $write_queue_limit_low  = undef,
   $package_name           = $collectd::params::package,
+  $manage_install                = true,
   $version                = installed,
 ) inherits collectd::params {
 
@@ -20,11 +21,13 @@ class collectd(
   validate_bool($purge_config, $fqdnlookup)
   validate_array($include, $typesdb)
 
-  package { $package_name:
-    ensure   => $version,
-    name     => $package_name,
-    provider => $collectd::params::provider,
-    before   => File['collectd.conf', 'collectd.d'],
+  if $manage_install {
+    $package { $package_name:
+      ensure   => $version,
+      name     => $package_name,
+      provider => $collectd::params::provider,
+      before   => File['collectd.conf', 'collectd.d'],
+    }
   }
 
   file { 'collectd.d':
@@ -70,6 +73,8 @@ class collectd(
     ensure  => running,
     name    => $collectd::params::service_name,
     enable  => true,
-    require => Package[$package_name],
+    if $manage_install {
+      require => Package[$package_name],
+    }
   }
 }
