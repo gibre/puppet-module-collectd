@@ -1,6 +1,7 @@
 class collectd::install {
   case $::collectd::install_method {
     'package' : {
+      notice ("package installation")
       package { $collectd::package_name:
         ensure   => $collectd::version,
         name     => $collectd::package_name,
