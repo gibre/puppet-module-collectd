@@ -13,7 +13,8 @@ class collectd(
   $write_queue_limit_high = undef,
   $write_queue_limit_low  = undef,
   $package_name           = $collectd::params::package,
-  $manage_install         = true,
+  $install_method         = 'package',
+  $install_script_path    = undef,
   $version                = installed,
 ) inherits collectd::params {
 
