@@ -8,7 +8,7 @@ class collectd::install {
         before   => File['collectd.conf', 'collectd.d'],
       }
     }
-    'script_centos' : {
+    'script' : {
         notify ("installing via script")
         file {
         'install_collectd':
@@ -24,7 +24,6 @@ class collectd::install {
         'run_collectd_install':
          command     => '/usr/local/bin/install_collectd.sh',
          refreshonly => true,
-         require     => Class['yum::repo::epel'],
       }
     }
     default: {
