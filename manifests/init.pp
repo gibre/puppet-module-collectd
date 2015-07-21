@@ -22,12 +22,7 @@ class collectd(
   validate_array($include, $typesdb)
 
   if $manage_install {
-    $package { $package_name:
-      ensure   => $version,
-      name     => $package_name,
-      provider => $collectd::params::provider,
-      before   => File['collectd.conf', 'collectd.d'],
-    }
+    include collectd::install
   }
 
   file { 'collectd.d':
