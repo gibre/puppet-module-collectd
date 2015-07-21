@@ -21,9 +21,7 @@ class collectd(
   validate_bool($purge_config, $fqdnlookup)
   validate_array($include, $typesdb)
 
-  if $manage_install {
-    include collectd::install
-  }
+  include collectd::install
 
   file { 'collectd.d':
     ensure  => directory,
@@ -68,8 +66,6 @@ class collectd(
     ensure  => running,
     name    => $collectd::params::service_name,
     enable  => true,
-    if ($collectd::manage_install) {
-      require => Package[$package_name],
-    }
+    require => Class[collectd::install],
   }
 }
