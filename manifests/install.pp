@@ -1,5 +1,5 @@
 class collectd::install {
-  case $::collectd::install_method() {
+  case $::collectd::install_method {
     'package' : {
       package { $collectd::package_name:
         ensure   => $version,
