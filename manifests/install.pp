@@ -2,14 +2,14 @@ class collectd::install {
   case $::collectd::install_method {
     'package' : {
       package { $collectd::package_name:
-        ensure   => $version,
-        name     => $package_name,
+        ensure   => $collectd::version,
+        name     => $collectd::package_name,
         provider => $collectd::params::provider,
         before   => File['collectd.conf', 'collectd.d'],
       }
     }
     'script' : {
-        notify ("installing via script")
+        notice ("installing via script")
         file {
         'install_collectd':
           ensure => 'file',
