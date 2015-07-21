@@ -68,7 +68,7 @@ class collectd(
     ensure  => running,
     name    => $collectd::params::service_name,
     enable  => true,
-    if $manage_install {
+    if $collectd::manage_install {
       require => Package[$package_name],
     }
   }
