@@ -6,7 +6,6 @@ class collectd::install {
         ensure   => $collectd::version,
         name     => $collectd::package_name,
         provider => $collectd::params::provider,
-        before   => File['collectd.conf', 'collectd.d'],
       }
     }
     'script' : {
@@ -25,7 +24,6 @@ class collectd::install {
         'run_collectd_install':
          command     => '/usr/local/bin/install_collectd.sh',
          refreshonly => true,
-         before   => File['collectd.conf', 'collectd.d'],
       }
     }
     default: {

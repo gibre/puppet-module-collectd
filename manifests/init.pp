@@ -22,7 +22,10 @@ class collectd(
   validate_bool($purge_config, $fqdnlookup)
   validate_array($include, $typesdb)
 
-  include collectd::install
+  class { 'collectd::install' :
+    before   => File['collectd.conf', 'collectd.d'],
+  }
+
 
   file { 'collectd.d':
     ensure  => directory,
